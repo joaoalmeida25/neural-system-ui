@@ -5,28 +5,28 @@ import {
   type ReactElement,
 } from "react";
 
-import { useNeuralCoreRendererConfig } from "../../adapters/react/hooks/use-neural-core-renderer-config.hook";
-import { useNeuralCoreInspectionBinding } from "../../adapters/react/composition/neural-core-inspection-binding.context";
-import { useNeuralCoreModelCompatibility } from "../../adapters/react/composition/neural-core-model-compatibility.context";
-import { useNeuralCorePresentationBinding } from "../../adapters/react/composition/neural-core-presentation-binding.context";
-import { NeuralCoreRenderer } from "../../adapters/react/composition/neural-core-renderer.component";
-import { useNeuralCoreRendererObservers } from "../../adapters/react/composition/neural-core-renderer-observers.context";
-import { useNeuralCoreRuntimeBinding } from "../../adapters/react/runtime/neural-core-runtime-binding.context";
+import { useNeuralCoreRendererConfig } from "../hooks/use-neural-core-renderer-config.hook";
+import { useNeuralCoreInspectionBinding } from "../composition/neural-core-renderer/neural-core-inspection-binding.context";
+import { useNeuralCoreModelCompatibility } from "../composition/neural-core-renderer/neural-core-model-compatibility.context";
+import { useNeuralCorePresentationBinding } from "../composition/neural-core-renderer/neural-core-presentation-binding.context";
+import { NeuralCoreRenderer } from "../composition/neural-core-renderer/neural-core-renderer.component";
+import { useNeuralCoreRendererObservers } from "../composition/neural-core-renderer/neural-core-renderer-observers.context";
+import { useNeuralCoreRuntimeBinding } from "../runtime/neural-core-runtime-binding.context";
 import {
   adaptModelDiagnosticsToPublicError,
   adaptRuntimeDiagnosticsToPublicError,
-} from "../adapters/neural-core-error.adapter";
+} from "../../../api/adapters/neural-core-error.adapter";
 import {
   createNeuralCoreExecutionCompletedEvent,
   createNeuralCoreExecutionStartedEvent,
   createNeuralCoreReadyEvent,
   createNeuralCoreRuntimeEventObservedEvent,
-} from "../adapters/neural-core-event.adapter";
-import { adaptNeuralCoreModel } from "../adapters/neural-core-model.adapter";
-import { adaptNeuralCoreRuntime } from "../adapters/neural-core-runtime.adapter";
-import { createNeuralCoreConfig } from "../defaults/neural-core-config.defaults";
-import { createNeuralCoreModel } from "../validation/neural-core-model.validation";
-import { createNeuralCoreRuntime } from "../validation/neural-core-runtime.validation";
+} from "../../../api/adapters/neural-core-event.adapter";
+import { adaptNeuralCoreModel } from "../../../api/adapters/neural-core-model.adapter";
+import { adaptNeuralCoreRuntime } from "../../../api/adapters/neural-core-runtime.adapter";
+import { createNeuralCoreConfig } from "../../../api/defaults/neural-core-config.defaults";
+import { createNeuralCoreModel } from "../../../api/validation/neural-core-model.validation";
+import { createNeuralCoreRuntime } from "../../../api/validation/neural-core-runtime.validation";
 import styles from "./neural-core.module.css";
 import type { NeuralCoreProps } from "./neural-core-props.types";
 import { useNeuralCoreInteraction } from "./use-neural-core-interaction.hook";

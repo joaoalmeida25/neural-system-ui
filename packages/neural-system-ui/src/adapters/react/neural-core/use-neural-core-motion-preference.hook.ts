@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import type { NeuralCoreMotionPreference } from "../core/neural-core-config.types";
+import type { NeuralCoreMotionPreference } from "../../../api/contracts/neural-core-config.types";
 
 const getSystemReducedMotion = (): boolean => {
   if (typeof window === "undefined" || typeof window.matchMedia !== "function") {

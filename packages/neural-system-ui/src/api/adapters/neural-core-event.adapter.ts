@@ -2,13 +2,13 @@ import type {
   NeuralCoreClusterSelectionClearedEvent,
   NeuralCoreClusterSelectedEvent,
   NeuralCoreEvent,
-} from "../core/neural-core-event.types";
-import type { NeuralCoreInteractionMode } from "../core/neural-core-interaction.types";
-import type { NeuralCoreModelId } from "../core/neural-core-id.types";
+} from "../contracts/neural-core-event.types";
+import type { NeuralCoreInteractionMode } from "../contracts/neural-core-interaction.types";
+import type { NeuralCoreModelId } from "../contracts/neural-core-id.types";
 import type {
   NeuralCoreExecution,
   NeuralCoreRuntimeEvent,
-} from "../core/neural-core-runtime.types";
+} from "../contracts/neural-core-runtime.types";
 
 export const createNeuralCoreReadyEvent = (
   modelId: NeuralCoreModelId,

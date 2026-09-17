@@ -1,12 +1,12 @@
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 
-import type { NeuralCoreApplicationModel } from "../../../application/model/neural-core-application-model.types";
-import type { NeuralCoreApplicationRuntime } from "../../../application/runtime/neural-core-application-runtime.types";
-import type { NeuralCoreNarrativeState } from "../../../domain/narrative/neural-core-narrative.types";
-import type { NeuralCoreInteractionMode } from "../../../domain/inspection/neural-core-inspection.types";
-import type { NeuralCoreResolvedRendererConfig } from "../../../visualization/config/neural-core-renderer-config.resolver";
-import type { NeuralCorePresentationBinding } from "../presentation/neural-core-presentation-binding.types";
-import type { NeuralCoreRuntimeBinding } from "../runtime/neural-core-runtime-binding.context";
+import type { NeuralCoreApplicationModel } from "../../../../application/model/neural-core-application-model.types";
+import type { NeuralCoreApplicationRuntime } from "../../../../application/runtime/neural-core-application-runtime.types";
+import type { NeuralCoreNarrativeState } from "../../../../domain/narrative/neural-core-narrative.types";
+import type { NeuralCoreInteractionMode } from "../../../../domain/inspection/neural-core-inspection.types";
+import type { NeuralCoreResolvedRendererConfig } from "../../../../visualization/config/neural-core-renderer-config.resolver";
+import type { NeuralCorePresentationBinding } from "../../presentation/neural-core-presentation-binding.types";
+import type { NeuralCoreRuntimeBinding } from "../../runtime/neural-core-runtime-binding.context";
 import type { NeuralCoreInspectionBinding } from "./neural-core-inspection-binding.context";
 
 export interface NeuralCoreRendererInteractionState {

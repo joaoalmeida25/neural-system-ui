@@ -8,7 +8,7 @@ import type {
   NeuralCoreRoute,
   NeuralCoreRouteEndpoint,
   NeuralCoreRouteEndpointInput,
-} from "../core/neural-core-model.types";
+} from "../contracts/neural-core-model.types";
 import {
   toNeuralCoreIdAfterValidation,
 } from "./neural-core-identifiers";

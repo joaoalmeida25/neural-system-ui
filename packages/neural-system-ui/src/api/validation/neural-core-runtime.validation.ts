@@ -10,11 +10,11 @@ import type {
   NeuralCoreRuntimeImpact,
   NeuralCoreRuntimeInput,
   NeuralCoreRuntimeRetry,
-} from "../core/neural-core-runtime.types";
+} from "../contracts/neural-core-runtime.types";
 import type {
   NeuralCoreMetadata,
   NeuralCoreModel,
-} from "../core/neural-core-model.types";
+} from "../contracts/neural-core-model.types";
 import {
   toNeuralCoreIdAfterValidation,
 } from "./neural-core-identifiers";

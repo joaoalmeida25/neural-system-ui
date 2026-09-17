@@ -1,8 +1,8 @@
-import type { NeuralCoreClusterId } from "../core/neural-core-id.types";
+import type { NeuralCoreClusterId } from "../contracts/neural-core-id.types";
 import type {
   NeuralCoreInteractionState,
-} from "../core/neural-core-interaction.types";
-import type { NeuralCoreModel } from "../core/neural-core-model.types";
+} from "../contracts/neural-core-interaction.types";
+import type { NeuralCoreModel } from "../contracts/neural-core-model.types";
 import { toNeuralCoreIdAfterValidation } from "../validation/neural-core-identifiers";
 import type { NeuralCoreDiagnostic } from "../validation/neural-core-validation.types";
 

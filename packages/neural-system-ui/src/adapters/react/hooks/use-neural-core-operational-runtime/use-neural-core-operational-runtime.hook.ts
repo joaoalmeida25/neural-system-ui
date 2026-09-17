@@ -8,13 +8,13 @@ import {
 
 import {
   NEURAL_CORE_OPERATIONAL_RUNTIME_PROGRESS_PROPERTY,
-} from "../../../domain/operational-runtime/runtime/neural-core-operational-runtime.constants";
+} from "../../../../domain/operational-runtime/runtime/neural-core-operational-runtime.constants";
 import {
   createNeuralCoreOperationalExecutionIndex,
-} from "../../../domain/operational-runtime/runtime/neural-core-operational-runtime.index";
+} from "../../../../domain/operational-runtime/runtime/neural-core-operational-runtime.index";
 import {
   mapNeuralCoreOperationalPresentationTimeline,
-} from "../../../domain/operational-runtime/mappers/neural-core-operational-presentation-timeline.mapper";
+} from "../../../../domain/operational-runtime/mappers/neural-core-operational-presentation-timeline.mapper";
 import {
   advanceNeuralCoreOperationalRuntimeBoundary,
   createNeuralCoreOperationalEventCursor,
@@ -22,20 +22,20 @@ import {
   mapNeuralCoreOperationalRuntimeStatus,
   resolveNeuralCoreOperationalRuntimeBoundaryStatus,
   type NeuralCoreOperationalRuntimeAccumulator,
-} from "../../../domain/operational-runtime/runtime/neural-core-operational-runtime.mapper";
+} from "../../../../domain/operational-runtime/runtime/neural-core-operational-runtime.mapper";
 import {
   neuralCoreOperationalRuntimeReducer,
-} from "../../../domain/operational-runtime/runtime/neural-core-operational-runtime.reducer";
+} from "../../../../domain/operational-runtime/runtime/neural-core-operational-runtime.reducer";
 import type {
   NeuralCoreOperationalEventCursor,
   NeuralCoreOperationalExecutionIndex,
   NeuralCoreOperationalRuntimeSnapshot,
   NeuralCoreOperationalRuntimeStatus,
-} from "../../../domain/operational-runtime/runtime/neural-core-operational-runtime.types";
+} from "../../../../domain/operational-runtime/runtime/neural-core-operational-runtime.types";
 import {
   clampNeuralCoreOperationalRuntimeValue,
   resolveNeuralCoreOperationalRuntimeConfig,
-} from "../../../domain/operational-runtime/runtime/neural-core-operational-runtime.utils";
+} from "../../../../domain/operational-runtime/runtime/neural-core-operational-runtime.utils";
 import type {
   UseNeuralCoreOperationalRuntimeParams,
   UseNeuralCoreOperationalRuntimeResult,

@@ -2,7 +2,7 @@ import type {
   NeuralCoreConfig,
   NeuralCoreConfigInput,
   NeuralCorePreset,
-} from "../core/neural-core-config.types";
+} from "../contracts/neural-core-config.types";
 
 export const DEFAULT_NEURAL_CORE_CONFIG = {
   preset: "minimal",

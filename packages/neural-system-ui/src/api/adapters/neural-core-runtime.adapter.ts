@@ -3,7 +3,7 @@ import type {
   NeuralCoreRuntime,
   NeuralCoreRuntimeEvent,
   NeuralCoreRuntimeImpact,
-} from "../core/neural-core-runtime.types";
+} from "../contracts/neural-core-runtime.types";
 import type {
   NeuralCoreApplicationRuntime,
   NeuralCoreApplicationRuntimeEvent,

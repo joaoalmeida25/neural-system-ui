@@ -5,7 +5,7 @@ import {
   type ReactNode,
 } from "react";
 
-import type { NeuralCoreNarrativeState } from "../../../domain/narrative/neural-core-narrative.types";
+import type { NeuralCoreNarrativeState } from "../../../../domain/narrative/neural-core-narrative.types";
 
 interface NeuralCoreRendererObservers {
   readonly onNarrativeStateChange?: (state: NeuralCoreNarrativeState) => void;

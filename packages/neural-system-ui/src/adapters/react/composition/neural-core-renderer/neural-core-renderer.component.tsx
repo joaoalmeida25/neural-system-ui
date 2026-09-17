@@ -6,18 +6,18 @@ import {
   type ReactElement,
 } from "react";
 
-import type { NeuralCoreApplicationRuntime } from "../../../application/runtime/neural-core-application-runtime.types";
-import { mapNeuralCoreRuntimeToOperationalCompatibility } from "../../../application/runtime/neural-core-runtime-compatibility.mapper";
-import { NeuralCoreCanvas } from "../../three/components/neural-core-canvas/neural-core-canvas.component";
-import { useNeuralCoreInspection } from "../hooks/use-neural-core-inspection/use-neural-core-inspection.hook";
-import type { NeuralCoreNarrativeState } from "../../../domain/narrative/neural-core-narrative.types";
-import { mapOperationalRuntimeToNeuralCoreNarrative } from "../../../domain/operational-runtime/mappers/neural-core-operational-narrative.mapper";
-import { mapOperationalRouteEventToVisualRequest } from "../../../visualization/cluster-grammar/neural-core-operational-propagation.mapper";
-import { mapOperationalRuntimeToNeuralCoreSceneDirection } from "../../../visualization/direction/neural-core-operational-scene-direction.mapper";
-import { mapOperationalRuntimeToNeuralCoreVisualOverlay } from "../../../visualization/operational-runtime/mappers/neural-core-operational-visual-state.mapper";
-import type { UseNeuralCoreInspectionResult } from "../hooks/use-neural-core-inspection/use-neural-core-inspection.types";
-import { resolveNeuralCoreSemanticFocusLensConfig } from "../../../visualization/focus-lens/neural-core-semantic-focus-lens.utils";
-import { useNeuralCoreOperationalRuntime } from "../hooks/use-neural-core-operational-runtime.hook";
+import type { NeuralCoreApplicationRuntime } from "../../../../application/runtime/neural-core-application-runtime.types";
+import { mapNeuralCoreRuntimeToOperationalCompatibility } from "../../../../application/runtime/neural-core-runtime-compatibility.mapper";
+import { NeuralCoreCanvas } from "../../../three/components/neural-core-canvas/neural-core-canvas.component";
+import { useNeuralCoreInspection } from "../../hooks/use-neural-core-inspection/use-neural-core-inspection.hook";
+import type { NeuralCoreNarrativeState } from "../../../../domain/narrative/neural-core-narrative.types";
+import { mapOperationalRuntimeToNeuralCoreNarrative } from "../../../../domain/operational-runtime/mappers/neural-core-operational-narrative.mapper";
+import { mapOperationalRouteEventToVisualRequest } from "../../../../visualization/cluster-grammar/neural-core-operational-propagation.mapper";
+import { mapOperationalRuntimeToNeuralCoreSceneDirection } from "../../../../visualization/direction/neural-core-operational-scene-direction.mapper";
+import { mapOperationalRuntimeToNeuralCoreVisualOverlay } from "../../../../visualization/operational-runtime/mappers/neural-core-operational-visual-state.mapper";
+import type { UseNeuralCoreInspectionResult } from "../../hooks/use-neural-core-inspection/use-neural-core-inspection.types";
+import { resolveNeuralCoreSemanticFocusLensConfig } from "../../../../visualization/focus-lens/neural-core-semantic-focus-lens.utils";
+import { useNeuralCoreOperationalRuntime } from "../../hooks/use-neural-core-operational-runtime/use-neural-core-operational-runtime.hook";
 import type { NeuralCoreRendererProps } from "./neural-core-renderer.types";
 
 const EMPTY_INTERNAL_RUNTIME: NeuralCoreApplicationRuntime = Object.freeze({

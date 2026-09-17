@@ -14,14 +14,14 @@ export type {
   NeuralCoreVisualizationConfig,
   NeuralCoreVisualizationConfigInput,
   NeuralCoreVisualizationDensity,
-} from "./core/neural-core-config.types";
+} from "./contracts/neural-core-config.types";
 export type {
   NeuralCoreErrorHandler,
   NeuralCoreInputError,
   NeuralCorePublicError,
   NeuralCoreRuntimeError,
   NeuralCoreRuntimeErrorCode,
-} from "./core/neural-core-error.types";
+} from "./contracts/neural-core-error.types";
 export type {
   NeuralCoreClusterSelectedEvent,
   NeuralCoreClusterSelectionClearedEvent,
@@ -34,7 +34,7 @@ export type {
   NeuralCoreInteractionModeChangedEvent,
   NeuralCoreReadyEvent,
   NeuralCoreRuntimeEventObservedEvent,
-} from "./core/neural-core-event.types";
+} from "./contracts/neural-core-event.types";
 export type {
   NeuralCoreClusterId,
   NeuralCoreEntityId,
@@ -44,7 +44,7 @@ export type {
   NeuralCorePathwayId,
   NeuralCoreRouteId,
   NeuralCoreRuntimeEventId,
-} from "./core/neural-core-id.types";
+} from "./contracts/neural-core-id.types";
 export type {
   NeuralCoreControlledInteractionBinding,
   NeuralCoreInteractionBinding,
@@ -54,7 +54,7 @@ export type {
   NeuralCoreInteractionStateChangeHandler,
   NeuralCoreInteractionStateInput,
   NeuralCoreUncontrolledInteractionBinding,
-} from "./core/neural-core-interaction.types";
+} from "./contracts/neural-core-interaction.types";
 export type {
   NeuralCoreBuiltInRelationKind,
   NeuralCoreBuiltInSemanticKind,
@@ -77,7 +77,7 @@ export type {
   NeuralCoreSemanticKind,
   NeuralCoreMetadataPrimitive,
   NeuralCoreMetadataValue,
-} from "./core/neural-core-model.types";
+} from "./contracts/neural-core-model.types";
 export type {
   NeuralCoreBuiltInRuntimeEventKind,
   NeuralCoreExecution,
@@ -101,7 +101,7 @@ export type {
   NeuralCoreRuntimeInput,
   NeuralCoreRuntimeRetry,
   NeuralCoreRuntimeRetryInput,
-} from "./core/neural-core-runtime.types";
+} from "./contracts/neural-core-runtime.types";
 export {
   createNeuralCoreConfig,
   DEFAULT_NEURAL_CORE_CONFIG,
@@ -113,8 +113,8 @@ export {
 export type {
   NeuralCoreBaseProps,
   NeuralCoreProps,
-} from "./react/neural-core-props.types";
-export { NeuralCore } from "./react/neural-core.component";
+} from "../adapters/react/neural-core/neural-core-props.types";
+export { NeuralCore } from "../adapters/react/neural-core/neural-core.component";
 export {
   createNeuralCoreModel,
   validateNeuralCoreModel,

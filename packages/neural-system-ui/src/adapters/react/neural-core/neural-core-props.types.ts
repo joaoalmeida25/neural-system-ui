@@ -1,21 +1,21 @@
 import type {
   NeuralCoreConfigInput,
-} from "../core/neural-core-config.types";
+} from "../../../api/contracts/neural-core-config.types";
 import type {
   NeuralCoreErrorHandler,
-} from "../core/neural-core-error.types";
+} from "../../../api/contracts/neural-core-error.types";
 import type {
   NeuralCoreEventHandler,
-} from "../core/neural-core-event.types";
+} from "../../../api/contracts/neural-core-event.types";
 import type {
   NeuralCoreInteractionBinding,
-} from "../core/neural-core-interaction.types";
+} from "../../../api/contracts/neural-core-interaction.types";
 import type {
   NeuralCoreModelInput,
-} from "../core/neural-core-model.types";
+} from "../../../api/contracts/neural-core-model.types";
 import type {
   NeuralCoreRuntimeInput,
-} from "../core/neural-core-runtime.types";
+} from "../../../api/contracts/neural-core-runtime.types";
 
 export interface NeuralCoreBaseProps {
   readonly model: NeuralCoreModelInput;

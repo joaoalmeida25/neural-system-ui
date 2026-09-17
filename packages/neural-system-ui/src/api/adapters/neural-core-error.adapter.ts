@@ -1,7 +1,7 @@
 import type {
   NeuralCoreInputError,
   NeuralCoreRuntimeError,
-} from "../core/neural-core-error.types";
+} from "../contracts/neural-core-error.types";
 import type { NeuralCoreDiagnostic } from "../validation/neural-core-validation.types";
 
 export const adaptModelDiagnosticsToPublicError = (

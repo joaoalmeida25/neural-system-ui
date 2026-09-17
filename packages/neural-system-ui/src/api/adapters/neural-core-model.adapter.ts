@@ -27,7 +27,7 @@ import type {
   NeuralCoreRoute,
   NeuralCoreRouteEndpoint,
   NeuralCoreSemanticKind,
-} from "../core/neural-core-model.types";
+} from "../contracts/neural-core-model.types";
 
 const isMetadataArray = (
   value: NeuralCoreMetadataValue,

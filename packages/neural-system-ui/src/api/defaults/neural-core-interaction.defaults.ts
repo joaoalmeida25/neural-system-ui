@@ -1,7 +1,7 @@
 import type {
   NeuralCoreInteractionState,
   NeuralCoreInteractionStateInput,
-} from "../core/neural-core-interaction.types";
+} from "../contracts/neural-core-interaction.types";
 
 export const DEFAULT_NEURAL_CORE_INTERACTION_STATE = {
   mode: "presentation",

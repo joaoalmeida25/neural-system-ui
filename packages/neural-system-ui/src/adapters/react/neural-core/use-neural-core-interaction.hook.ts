@@ -8,23 +8,23 @@ import {
 
 import {
   adaptNeuralCoreInteractionState,
-} from "../adapters/neural-core-interaction.adapter";
-import { adaptInteractionDiagnosticToPublicError } from "../adapters/neural-core-error.adapter";
+} from "../../../api/adapters/neural-core-interaction.adapter";
+import { adaptInteractionDiagnosticToPublicError } from "../../../api/adapters/neural-core-error.adapter";
 import {
   createNeuralCoreClusterSelectedEvent,
   createNeuralCoreClusterSelectionClearedEvent,
   createNeuralCoreInteractionModeChangedEvent,
-} from "../adapters/neural-core-event.adapter";
-import type { NeuralCoreEvent } from "../core/neural-core-event.types";
+} from "../../../api/adapters/neural-core-event.adapter";
+import type { NeuralCoreEvent } from "../../../api/contracts/neural-core-event.types";
 import type {
   NeuralCoreInteractionBinding,
   NeuralCoreInteractionChangeReason,
   NeuralCoreInteractionMode,
   NeuralCoreInteractionState,
-} from "../core/neural-core-interaction.types";
-import type { NeuralCoreModel } from "../core/neural-core-model.types";
-import type { NeuralCoreExecutionId } from "../core/neural-core-id.types";
-import { createNeuralCoreInteractionState } from "../defaults/neural-core-interaction.defaults";
+} from "../../../api/contracts/neural-core-interaction.types";
+import type { NeuralCoreModel } from "../../../api/contracts/neural-core-model.types";
+import type { NeuralCoreExecutionId } from "../../../api/contracts/neural-core-id.types";
+import { createNeuralCoreInteractionState } from "../../../api/defaults/neural-core-interaction.defaults";
 
 interface UseNeuralCoreInteractionParams {
   readonly binding: NeuralCoreInteractionBinding;

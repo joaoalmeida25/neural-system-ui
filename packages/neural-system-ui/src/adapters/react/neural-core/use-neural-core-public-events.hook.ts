@@ -1,7 +1,7 @@
 import { useCallback, useRef } from "react";
 
-import type { NeuralCorePublicError } from "../core/neural-core-error.types";
-import type { NeuralCoreEvent } from "../core/neural-core-event.types";
+import type { NeuralCorePublicError } from "../../../api/contracts/neural-core-error.types";
+import type { NeuralCoreEvent } from "../../../api/contracts/neural-core-event.types";
 
 interface UseNeuralCorePublicEventsParams {
   readonly onError?: (error: NeuralCorePublicError) => void;

@@ -5,7 +5,7 @@ import {
   type ReactNode,
 } from "react";
 
-import type { NeuralCorePresentationBinding } from "../presentation/neural-core-presentation-binding.types";
+import type { NeuralCorePresentationBinding } from "../../presentation/neural-core-presentation-binding.types";
 
 interface NeuralCorePresentationBindingProviderProps {
   readonly binding: NeuralCorePresentationBinding;

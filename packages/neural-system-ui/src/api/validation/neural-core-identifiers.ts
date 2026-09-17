@@ -8,7 +8,7 @@ import type {
   NeuralCorePathwayId,
   NeuralCoreRouteId,
   NeuralCoreRuntimeEventId,
-} from "../core/neural-core-id.types";
+} from "../contracts/neural-core-id.types";
 import type {
   NeuralCoreDiagnostic,
   NeuralCoreDiagnosticCode,

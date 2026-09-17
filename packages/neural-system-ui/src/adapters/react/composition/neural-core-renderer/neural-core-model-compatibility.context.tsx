@@ -5,7 +5,7 @@ import {
   type ReactNode,
 } from "react";
 
-import type { NeuralCoreTopologyCompatibilityData } from "../../../domain/topology/neural-core-topology-compatibility.types";
+import type { NeuralCoreTopologyCompatibilityData } from "../../../../domain/topology/neural-core-topology-compatibility.types";
 
 interface NeuralCoreModelCompatibilityProviderProps {
   readonly children: ReactNode;
