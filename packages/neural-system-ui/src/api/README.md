@@ -7,7 +7,7 @@
 ## Minimal integration
 
 ```tsx
-import { NeuralCore, type NeuralCoreModelInput } from "./index";
+import { NeuralCore, type NeuralCoreModelInput } from "neural-system-ui";
 
 const model: NeuralCoreModelInput = {
   id: "system",
@@ -18,7 +18,7 @@ const model: NeuralCoreModelInput = {
 <NeuralCore model={model} />;
 ```
 
-See [`examples/minimal.example.tsx`](examples/minimal.example.tsx), [`examples/inspection.example.tsx`](examples/inspection.example.tsx), and [`examples/operational.example.tsx`](examples/operational.example.tsx).
+Runnable consumer examples live in `apps/web/src/examples` and import only the public package entrypoint.
 
 ## Model
 
@@ -51,12 +51,6 @@ Use `onError` to receive `NeuralCorePublicError`. The public error boundary repo
 ## Defaults
 
 `DEFAULT_NEURAL_CORE_CONFIG` and `DEFAULT_NEURAL_CORE_INTERACTION_STATE` expose stable defaults. `createNeuralCoreConfig` and `createNeuralCoreInteractionState` resolve partial inputs.
-
-## Examples
-
-- `minimal.example.tsx`: structural model with entity routes.
-- `inspection.example.tsx`: controlled selection and inspection events.
-- `operational.example.tsx`: runtime events, metrics, outcome, and errors.
 
 ## Public vs internal boundary
 

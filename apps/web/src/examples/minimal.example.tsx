@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import {
   NeuralCore,
   type NeuralCoreModelInput,
-} from "../index";
+} from "neural-system-ui";
 
 const model: NeuralCoreModelInput = {
   id: "service-overview",

@@ -8,9 +8,60 @@ body,
 }
 
 body {
+  background: #05070d;
   overflow: hidden;
 }
 
 .app {
+  position: relative;
   min-height: 100vh;
+  background: #05070d;
+  color: #e5f8ff;
+}
+
+.demo-viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.demo-selector {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  z-index: 20;
+  display: flex;
+  gap: 6px;
+  padding: 5px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(88, 209, 255, 0.24);
+  border-radius: 999px;
+  background: rgba(5, 7, 13, 0.88);
+}
+
+.demo-selector__button {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: rgba(214, 238, 248, 0.72);
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.demo-selector__button:hover {
+  color: #ffffff;
+  background: rgba(38, 217, 255, 0.08);
+}
+
+.demo-selector__button:focus-visible {
+  outline: 2px solid #26d9ff;
+  outline-offset: 2px;
+}
+
+.demo-selector__button[aria-pressed="true"] {
+  border-color: rgba(38, 217, 255, 0.45);
+  color: #ffffff;
+  background: rgba(38, 217, 255, 0.14);
 }

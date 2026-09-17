@@ -6,7 +6,7 @@ import {
   type NeuralCoreModelInput,
   type NeuralCorePublicError,
   type NeuralCoreRuntimeInput,
-} from "../index";
+} from "neural-system-ui";
 
 const model: NeuralCoreModelInput = {
   id: "checkout-runtime",

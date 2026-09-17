@@ -6,7 +6,7 @@ import {
   type NeuralCoreInteractionState,
   type NeuralCoreInteractionStateChangeHandler,
   type NeuralCoreModelInput,
-} from "../index";
+} from "neural-system-ui";
 
 const model: NeuralCoreModelInput = {
   id: "inspection-overview",
