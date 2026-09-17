@@ -207,17 +207,9 @@ const SCENE_VISUAL_COMPOSITION: NeuralCoreElementVisualComposition = {
 
 const POINT_CLOUD_SEMANTIC_ATTRIBUTE_NAMES = [
   "aSemanticTint",
-  "aSemanticBrightness",
-  "aSemanticColorInfluence",
-  "aSemanticScale",
-  "aSemanticOpacity",
-  "aSemanticJitter",
-  "aSemanticFragmentation",
-  "aSemanticDecay",
-  "aSemanticFill",
-  "aSemanticSynchronization",
-  "aSemanticPulseFrequency",
-  "aSemanticPulseAmplitude",
+  "aSemanticAppearance",
+  "aSemanticBehavior",
+  "aSemanticDynamics",
 ] as const;
 
 const smoothStep = (minimum: number, maximum: number, value: number): number => {

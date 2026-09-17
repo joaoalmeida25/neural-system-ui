@@ -516,6 +516,8 @@ const createPointCloudFields = (
   return graph.nodeClouds.map((cloud): NeuralCoreSemanticPointCloudField => {
     const pointCount = cloud.nodeIds.length;
     const field: NeuralCoreSemanticPointCloudField = {
+      appearance: new Float32Array(pointCount * 4),
+      behavior: new Float32Array(pointCount * 4),
       brightnesses: new Float32Array(pointCount),
       colorInfluences: new Float32Array(pointCount),
       colors: new Float32Array(pointCount * 3),
@@ -529,6 +531,7 @@ const createPointCloudFields = (
       scales: new Float32Array(pointCount),
       seeds: new Float32Array(pointCount),
       synchronizations: new Float32Array(pointCount),
+      dynamics: new Float32Array(pointCount * 4),
     };
     field.opacities.fill(1);
     field.brightnesses.fill(1);
@@ -688,6 +691,20 @@ const synchronizePointCloudFields = (
       field.scales[pointIndex] = buffers.nodeField.scales[nodeIndex];
       field.seeds[pointIndex] = buffers.nodeField.seeds[nodeIndex];
       field.synchronizations[pointIndex] = buffers.nodeField.synchronizations[nodeIndex];
+
+      const packedOffset = pointIndex * 4;
+      field.appearance[packedOffset] = field.brightnesses[pointIndex];
+      field.appearance[packedOffset + 1] = field.colorInfluences[pointIndex];
+      field.appearance[packedOffset + 2] = field.scales[pointIndex];
+      field.appearance[packedOffset + 3] = field.opacities[pointIndex];
+      field.behavior[packedOffset] = field.jitters[pointIndex];
+      field.behavior[packedOffset + 1] = field.fragmentations[pointIndex];
+      field.behavior[packedOffset + 2] = field.decays[pointIndex];
+      field.behavior[packedOffset + 3] = field.fills[pointIndex];
+      field.dynamics[packedOffset] = field.synchronizations[pointIndex];
+      field.dynamics[packedOffset + 1] = field.pulseFrequencies[pointIndex];
+      field.dynamics[packedOffset + 2] = field.pulseAmplitudes[pointIndex];
+      field.dynamics[packedOffset + 3] = field.seeds[pointIndex];
     }
   });
 };

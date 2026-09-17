@@ -126,19 +126,10 @@ const AMBIENT_POINT_FRAGMENT_SHADER = `
 const BASE_NODE_VERTEX_SHADER = `
   attribute vec3 color;
   attribute vec3 aSemanticTint;
-  attribute float aSemanticBrightness;
-  attribute float aSemanticColorInfluence;
-  attribute float aSemanticScale;
-  attribute float aSemanticOpacity;
+  attribute vec4 aSemanticAppearance;
+  attribute vec4 aSemanticBehavior;
+  attribute vec4 aSemanticDynamics;
   attribute float aClusterGrammarOpacity;
-  attribute float aSemanticJitter;
-  attribute float aSemanticFragmentation;
-  attribute float aSemanticDecay;
-  attribute float aSemanticFill;
-  attribute float aSemanticSynchronization;
-  attribute float aSemanticPulseFrequency;
-  attribute float aSemanticPulseAmplitude;
-  attribute float aSemanticSeed;
   uniform float uTime;
   uniform float uBasePointSize;
   uniform float uPointScale;
@@ -164,6 +155,21 @@ const BASE_NODE_VERTEX_SHADER = `
   }
 
   void main() {
+    float aSemanticBrightness = aSemanticAppearance.x;
+    float aSemanticColorInfluence = aSemanticAppearance.y;
+    float aSemanticScale = aSemanticAppearance.z;
+    float aSemanticOpacity = aSemanticAppearance.w;
+
+    float aSemanticJitter = aSemanticBehavior.x;
+    float aSemanticFragmentation = aSemanticBehavior.y;
+    float aSemanticDecay = aSemanticBehavior.z;
+    float aSemanticFill = aSemanticBehavior.w;
+
+    float aSemanticSynchronization = aSemanticDynamics.x;
+    float aSemanticPulseFrequency = aSemanticDynamics.y;
+    float aSemanticPulseAmplitude = aSemanticDynamics.z;
+    float aSemanticSeed = aSemanticDynamics.w;
+
     vec3 direction = semanticNoise(aSemanticSeed);
     float jitterWave = sin(uTime * 0.55 + aSemanticSeed * 31.0);
     vec3 semanticPosition = position
@@ -653,40 +659,22 @@ export const NeuralCoreSceneView = ({
               <bufferAttribute attach="attributes-color" args={[cloud.colors, 3]} />
               <bufferAttribute attach="attributes-aSemanticTint" args={[semanticField.colors, 3]} />
               <bufferAttribute
-                attach="attributes-aSemanticBrightness"
-                args={[semanticField.brightnesses, 1]}
+                attach="attributes-aSemanticAppearance"
+                args={[semanticField.appearance, 4]}
               />
               <bufferAttribute
-                attach="attributes-aSemanticColorInfluence"
-                args={[semanticField.colorInfluences, 1]}
+                attach="attributes-aSemanticBehavior"
+                args={[semanticField.behavior, 4]}
               />
-              <bufferAttribute attach="attributes-aSemanticScale" args={[semanticField.scales, 1]} />
-              <bufferAttribute attach="attributes-aSemanticOpacity" args={[semanticField.opacities, 1]} />
+              <bufferAttribute
+                attach="attributes-aSemanticDynamics"
+                args={[semanticField.dynamics, 4]}
+              />
               <bufferAttribute
                 ref={clusterGrammarNodeOpacityRefs[cloudIndex]}
                 attach="attributes-aClusterGrammarOpacity"
                 args={[clusterGrammarBufferState.pointCloudOpacities[cloudIndex], 1]}
               />
-              <bufferAttribute attach="attributes-aSemanticJitter" args={[semanticField.jitters, 1]} />
-              <bufferAttribute
-                attach="attributes-aSemanticFragmentation"
-                args={[semanticField.fragmentations, 1]}
-              />
-              <bufferAttribute attach="attributes-aSemanticDecay" args={[semanticField.decays, 1]} />
-              <bufferAttribute attach="attributes-aSemanticFill" args={[semanticField.fills, 1]} />
-              <bufferAttribute
-                attach="attributes-aSemanticSynchronization"
-                args={[semanticField.synchronizations, 1]}
-              />
-              <bufferAttribute
-                attach="attributes-aSemanticPulseFrequency"
-                args={[semanticField.pulseFrequencies, 1]}
-              />
-              <bufferAttribute
-                attach="attributes-aSemanticPulseAmplitude"
-                args={[semanticField.pulseAmplitudes, 1]}
-              />
-              <bufferAttribute attach="attributes-aSemanticSeed" args={[semanticField.seeds, 1]} />
             </bufferGeometry>
             <shaderMaterial
               vertexShader={BASE_NODE_VERTEX_SHADER}

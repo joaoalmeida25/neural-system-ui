@@ -32,6 +32,8 @@ export interface NeuralCoreSemanticNodeField {
 }
 
 export interface NeuralCoreSemanticPointCloudField {
+  appearance: Float32Array;
+  behavior: Float32Array;
   brightnesses: Float32Array;
   colorInfluences: Float32Array;
   colors: Float32Array;
@@ -45,6 +47,7 @@ export interface NeuralCoreSemanticPointCloudField {
   scales: Float32Array;
   seeds: Float32Array;
   synchronizations: Float32Array;
+  dynamics: Float32Array;
 }
 
 export interface NeuralCoreSemanticConnectionField {
