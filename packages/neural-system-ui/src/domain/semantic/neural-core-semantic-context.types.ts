@@ -1,4 +1,4 @@
-import type { NeuralCoreTopologyStatus } from "../topology/neural-core-topology.types";
+import type { NeuralCoreTopologyStatus } from "../model/neural-core-topology-status.types";
 
 export type NeuralCoreMetricValue = string | number | boolean;
 

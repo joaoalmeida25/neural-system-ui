@@ -1,5 +1,3 @@
-import type { RefObject } from "react";
-
 import type {
   NeuralCoreOperationalEvent,
   NeuralCoreOperationalImpactLevel,
@@ -110,14 +108,6 @@ export interface NeuralCoreOperationalRuntimeController {
   pause: () => void;
   resume: () => void;
   restart: () => void;
-}
-
-export interface NeuralCoreOperationalRuntimeProgressRefs {
-  progressBarRef: RefObject<HTMLDivElement | null>;
-  progressLabelRef: RefObject<HTMLOutputElement | null>;
-  elapsedMsRef: NeuralCoreOperationalRuntimeValueRef;
-  progressRef: NeuralCoreOperationalRuntimeValueRef;
-  activeRouteProgressRef: NeuralCoreOperationalRuntimeValueRef;
 }
 
 export interface NeuralCoreOperationalRuntimeValueRef {

@@ -133,10 +133,10 @@ import {
 } from "../../visualization/topology/neural-core-topology-visual.constants";
 import {
   mapOperationalRouteEventToVisualChannel,
-} from "../../domain/operational-runtime/mappers/neural-core-operational-route-visual-channel.mapper";
+} from "../../visualization/cluster-grammar/neural-core-operational-route-visual-channel.mapper";
 import {
   mapOperationalVisualChannelToPropagation,
-} from "../../domain/operational-runtime/mappers/neural-core-operational-propagation.mapper";
+} from "../../visualization/cluster-grammar/neural-core-operational-propagation.mapper";
 import {
   NEURAL_CORE_OPERATIONAL_PROTAGONIST_MARKER_CONFIG,
 } from "../../visualization/propagation/neural-core-operational-protagonist-marker.constants";

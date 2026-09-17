@@ -1,5 +1,5 @@
-import type { NeuralCoreSceneDirectionTimeline } from "../../../visualization/direction/neural-core-scene-direction.types";
-import type { NeuralCoreOperationalRuntimeSnapshot } from "../runtime/neural-core-operational-runtime.types";
+import type { NeuralCoreOperationalRuntimeSnapshot } from "../../domain/operational-runtime/runtime/neural-core-operational-runtime.types";
+import type { NeuralCoreSceneDirectionTimeline } from "./neural-core-scene-direction.types";
 
 export const mapOperationalRuntimeToNeuralCoreSceneDirection = (
   snapshot: NeuralCoreOperationalRuntimeSnapshot,

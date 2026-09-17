@@ -66,10 +66,10 @@ import type {
 } from "../../domain/operational-runtime/runtime/neural-core-operational-runtime.types";
 import type {
   NeuralCoreOperationalRouteVisualRequest,
-} from "../../domain/operational-runtime/mappers/neural-core-operational-propagation.mapper";
+} from "../../visualization/cluster-grammar/neural-core-operational-propagation.mapper";
 import type {
   NeuralCoreOperationalVisualOverlay,
-} from "../../domain/operational-runtime/mappers/neural-core-operational-visual-state.mapper";
+} from "../../visualization/operational-runtime/mappers/neural-core-operational-visual-state.mapper";
 
 export interface NeuralCoreSceneProps {
   choreography?: NeuralCoreChoreography;

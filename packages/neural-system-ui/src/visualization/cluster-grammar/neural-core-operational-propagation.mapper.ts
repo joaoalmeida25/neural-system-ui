@@ -1,14 +1,14 @@
 import type {
   NeuralCoreSynapse,
   NeuralCoreTransmission,
-} from "../../topology/neural-core-topology.types";
+} from "../../domain/topology/neural-core-topology.types";
 import type {
   NeuralCoreOperationalRouteVisualChannel,
-} from "../../../visualization/cluster-grammar/neural-core-operational-route-visual-channel.types";
-import type { NeuralCoreOperationalEvent } from "../types/neural-core-operational-event.types";
+} from "./neural-core-operational-route-visual-channel.types";
+import type { NeuralCoreOperationalEvent } from "../../domain/operational-runtime/types/neural-core-operational-event.types";
 import type {
   NeuralCoreOperationalPresentationEvent,
-} from "../runtime/neural-core-operational-presentation.types";
+} from "../../domain/operational-runtime/runtime/neural-core-operational-presentation.types";
 
 export interface NeuralCoreOperationalRouteVisualRequest {
   id: string;

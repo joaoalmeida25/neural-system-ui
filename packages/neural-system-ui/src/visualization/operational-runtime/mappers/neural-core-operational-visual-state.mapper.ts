@@ -1,18 +1,18 @@
 import type {
   NeuralCoreMetric,
-} from "../../semantic/neural-core-semantic-context.types";
+} from "../../../domain/semantic/neural-core-semantic-context.types";
 import type {
   NeuralCoreCluster,
   NeuralCoreTopology,
   NeuralCoreTopologyStatus,
-} from "../../topology/neural-core-topology.types";
+} from "../../../domain/topology/neural-core-topology.types";
 import type {
   NeuralCoreOperationalClusterRuntimeState,
   NeuralCoreOperationalImpactRuntimeState,
   NeuralCoreOperationalRetryRuntimeState,
   NeuralCoreOperationalRuntimeSnapshot,
-} from "../runtime/neural-core-operational-runtime.types";
-import { mergeNeuralCoreOperationalMetrics } from "./neural-core-operational-metrics.mapper";
+} from "../../../domain/operational-runtime/runtime/neural-core-operational-runtime.types";
+import { mergeNeuralCoreOperationalMetrics } from "../../../domain/operational-runtime/mappers/neural-core-operational-metrics.mapper";
 
 export interface NeuralCoreOperationalClusterVisualState {
   clusterId: string;

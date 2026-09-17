@@ -1,4 +1,11 @@
 import type { NeuralCoreTopology } from "../topology/neural-core-topology.types";
+import type { NeuralCoreMetadata } from "../model/neural-core-metadata.types";
+
+export type {
+  NeuralCoreMetadata,
+  NeuralCoreMetadataPrimitive,
+  NeuralCoreMetadataValue,
+} from "../model/neural-core-metadata.types";
 
 export type NeuralCoreMode =
   | "idle"
@@ -63,15 +70,6 @@ export type NeuralCoreAccentColor =
   | "green"
   | "orange"
   | "red";
-
-export type NeuralCoreMetadataPrimitive = string | number | boolean | null;
-
-export type NeuralCoreMetadataValue =
-  | NeuralCoreMetadataPrimitive
-  | NeuralCoreMetadataValue[]
-  | { [key: string]: NeuralCoreMetadataValue };
-
-export type NeuralCoreMetadata = Record<string, NeuralCoreMetadataValue>;
 
 export interface NeuralCoreEntity {
   id: string;

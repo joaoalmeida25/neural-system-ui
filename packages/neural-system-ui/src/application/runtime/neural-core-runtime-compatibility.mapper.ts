@@ -1,10 +1,10 @@
-import type { NeuralCoreModelAdapterResult } from "../../api/adapters/neural-core-model.adapter";
 import type {
-  NeuralCoreInternalRuntime,
-  NeuralCoreInternalRuntimeEvent,
-  NeuralCoreInternalRuntimeMetric,
-} from "../../api/adapters/neural-core-runtime.adapter";
-import type { NeuralCoreMetadataValue } from "../../api/core/neural-core-model.types";
+  NeuralCoreApplicationRuntime,
+  NeuralCoreApplicationRuntimeEvent,
+  NeuralCoreApplicationRuntimeMetric,
+  NeuralCoreApplicationMetadataValue,
+} from "./neural-core-application-runtime.types";
+import type { NeuralCoreApplicationModel } from "../model/neural-core-application-model.types";
 import type { NeuralCoreOperationalEvent } from "../../domain/operational-runtime/types/neural-core-operational-event.types";
 import type { NeuralCoreOperationalExecution } from "../../domain/operational-runtime/types/neural-core-operational-execution.types";
 import type { NeuralCoreOperationalMetric } from "../../domain/operational-runtime/types/neural-core-operational-metric.types";
@@ -19,7 +19,7 @@ export interface NeuralCoreOperationalCompatibility {
 }
 
 const readMetadataString = (
-  metadata: Readonly<Record<string, NeuralCoreMetadataValue>>,
+  metadata: Readonly<Record<string, NeuralCoreApplicationMetadataValue>>,
   key: string,
 ): string | undefined => {
   const value = metadata[key];
@@ -27,7 +27,7 @@ const readMetadataString = (
 };
 
 const readMetadataCount = (
-  metadata: Readonly<Record<string, NeuralCoreMetadataValue>>,
+  metadata: Readonly<Record<string, NeuralCoreApplicationMetadataValue>>,
   key: string,
 ): number => {
   const value = metadata[key];
@@ -35,7 +35,7 @@ const readMetadataCount = (
 };
 
 const mapMetric = (
-  metric: NeuralCoreInternalRuntimeMetric,
+  metric: NeuralCoreApplicationRuntimeMetric,
 ): NeuralCoreOperationalMetric => ({
   id: metric.id,
   name: metric.name,
@@ -52,7 +52,7 @@ const mapMetric = (
 });
 
 const mapEventType = (
-  event: NeuralCoreInternalRuntimeEvent,
+  event: NeuralCoreApplicationRuntimeEvent,
 ): NeuralCoreOperationalEvent["type"] => {
   switch (event.kind) {
     case "execution-started":
@@ -76,7 +76,7 @@ const mapEventType = (
 };
 
 const mapEventStatus = (
-  event: NeuralCoreInternalRuntimeEvent,
+  event: NeuralCoreApplicationRuntimeEvent,
 ): NeuralCoreOperationalEvent["status"] => {
   switch (event.status) {
     case "idle":
@@ -97,7 +97,7 @@ const mapEventStatus = (
 };
 
 const mapScalarMetadata = (
-  metadata: Readonly<Record<string, NeuralCoreMetadataValue>>,
+  metadata: Readonly<Record<string, NeuralCoreApplicationMetadataValue>>,
 ): Readonly<Record<string, string | number | boolean>> => {
   const result: Record<string, string | number | boolean> = {};
   Object.keys(metadata).sort().forEach((key) => {
@@ -112,16 +112,16 @@ const mapScalarMetadata = (
 };
 
 const resolveInternalEventClusterId = (
-  event: NeuralCoreInternalRuntimeEvent,
-  model: NeuralCoreModelAdapterResult,
+  event: NeuralCoreApplicationRuntimeEvent,
+  model: NeuralCoreApplicationModel,
 ): string | undefined => event.clusterId
   ?? (event.entityId === undefined
     ? undefined
     : model.internalClusterIdByEntityId.get(event.entityId));
 
 const createStages = (
-  runtime: NeuralCoreInternalRuntime,
-  model: NeuralCoreModelAdapterResult,
+  runtime: NeuralCoreApplicationRuntime,
+  model: NeuralCoreApplicationModel,
 ): readonly NeuralCoreOperationalStage[] => {
   const stageIdByClusterId = new Map<string, string>();
   runtime.events.forEach((event) => {
@@ -149,7 +149,7 @@ const createStages = (
 };
 
 const mapExecutionKind = (
-  runtime: NeuralCoreInternalRuntime,
+  runtime: NeuralCoreApplicationRuntime,
 ): NeuralCoreOperationalExecution["kind"] => {
   switch (runtime.outcome.status) {
     case "success":
@@ -163,8 +163,8 @@ const mapExecutionKind = (
 };
 
 export const mapNeuralCoreRuntimeToOperationalCompatibility = (
-  runtime: NeuralCoreInternalRuntime,
-  model: NeuralCoreModelAdapterResult,
+  runtime: NeuralCoreApplicationRuntime,
+  model: NeuralCoreApplicationModel,
 ): NeuralCoreOperationalCompatibility => {
   const stages = createStages(runtime, model);
   const stageIds = new Set(stages.map((stage) => stage.id));

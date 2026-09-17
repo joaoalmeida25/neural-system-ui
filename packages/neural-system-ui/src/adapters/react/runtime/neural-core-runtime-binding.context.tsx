@@ -5,7 +5,7 @@ import {
   type ReactNode,
 } from "react";
 
-import type { UseNeuralCoreOperationalRuntimeResult } from "../../domain/operational-runtime/hooks/use-neural-core-operational-runtime.types";
+import type { UseNeuralCoreOperationalRuntimeResult } from "../hooks/use-neural-core-operational-runtime.types";
 
 export interface NeuralCoreRuntimeBinding {
   readonly operationalRuntime: UseNeuralCoreOperationalRuntimeResult;

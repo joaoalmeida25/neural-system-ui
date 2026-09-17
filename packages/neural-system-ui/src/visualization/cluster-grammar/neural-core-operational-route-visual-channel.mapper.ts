@@ -1,11 +1,11 @@
 import type {
   NeuralCoreAggregatedRoute,
-} from "../../../visualization/cluster-grammar/neural-core-cluster-grammar.types";
+} from "./neural-core-cluster-grammar.types";
 import type {
   NeuralCoreOperationalRouteVisualChannel,
   NeuralCoreOperationalRouteVisualMode,
   NeuralCoreOperationalRouteVisualStatus,
-} from "../../../visualization/cluster-grammar/neural-core-operational-route-visual-channel.types";
+} from "./neural-core-operational-route-visual-channel.types";
 import type {
   NeuralCoreOperationalRouteVisualRequest,
 } from "./neural-core-operational-propagation.mapper";

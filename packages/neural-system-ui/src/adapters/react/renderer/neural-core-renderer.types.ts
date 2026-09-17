@@ -1,19 +1,22 @@
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 
-import type { NeuralCoreConfigAdapterResult } from "../../api/adapters/neural-core-config.adapter";
-import type { NeuralCoreModelAdapterResult } from "../../api/adapters/neural-core-model.adapter";
-import type { NeuralCoreInternalRuntime } from "../../api/adapters/neural-core-runtime.adapter";
-import type {
-  NeuralCoreInteractionMode,
-  NeuralCoreInteractionState,
-} from "../../api/core/neural-core-interaction.types";
-import type { NeuralCoreRuntimeBinding } from "../neural-core-runtime/neural-core-runtime-binding.context";
-import type { NeuralCoreNarrativeState } from "../../domain/narrative/neural-core-narrative.types";
-import type { NeuralCorePresentationBinding } from "../../domain/presentation/neural-core-presentation-binding.types";
+import type { NeuralCoreApplicationModel } from "../../../application/model/neural-core-application-model.types";
+import type { NeuralCoreApplicationRuntime } from "../../../application/runtime/neural-core-application-runtime.types";
+import type { NeuralCoreNarrativeState } from "../../../domain/narrative/neural-core-narrative.types";
+import type { NeuralCoreInteractionMode } from "../../../domain/inspection/neural-core-inspection.types";
+import type { NeuralCoreConfigAdapterResult } from "../config/neural-core-renderer-config.adapter";
+import type { NeuralCorePresentationBinding } from "../presentation/neural-core-presentation-binding.types";
+import type { NeuralCoreRuntimeBinding } from "../runtime/neural-core-runtime-binding.context";
 import type { NeuralCoreInspectionBinding } from "./neural-core-inspection-binding.context";
 
+export interface NeuralCoreRendererInteractionState {
+  readonly mode: NeuralCoreInteractionMode;
+  readonly selectedClusterId?: string;
+  readonly paused: boolean;
+}
+
 export interface NeuralCoreRendererInteractionController {
-  readonly state: NeuralCoreInteractionState;
+  readonly state: NeuralCoreRendererInteractionState;
   readonly requestMode: (mode: NeuralCoreInteractionMode) => void;
   readonly requestPaused: (paused: boolean) => void;
   readonly requestSelection: (
@@ -26,14 +29,14 @@ export interface NeuralCoreRendererProps {
   readonly config: NeuralCoreConfigAdapterResult;
   readonly interaction: NeuralCoreRendererInteractionController;
   readonly inspectionBinding?: NeuralCoreInspectionBinding;
-  readonly model: NeuralCoreModelAdapterResult;
+  readonly model: NeuralCoreApplicationModel;
   readonly onReady?: () => void;
   readonly onNarrativeStateChange?: (state: NeuralCoreNarrativeState) => void;
   readonly onRuntimeCompleted?: () => void;
   readonly onRuntimeEventObserved?: (eventId: string) => void;
   readonly onRuntimeStarted?: () => void;
   readonly presentationBinding?: NeuralCorePresentationBinding;
-  readonly runtime?: NeuralCoreInternalRuntime;
+  readonly runtime?: NeuralCoreApplicationRuntime;
   readonly runtimeBinding?: NeuralCoreRuntimeBinding;
 }
 

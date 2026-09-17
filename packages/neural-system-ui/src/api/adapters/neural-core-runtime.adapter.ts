@@ -1,61 +1,26 @@
 import type {
-  NeuralCoreExecutionOutcome,
   NeuralCoreMetric,
   NeuralCoreRuntime,
   NeuralCoreRuntimeEvent,
   NeuralCoreRuntimeImpact,
-  NeuralCoreRuntimeRetry,
 } from "../core/neural-core-runtime.types";
-import type { NeuralCoreMetadata } from "../core/neural-core-model.types";
+import type {
+  NeuralCoreApplicationRuntime,
+  NeuralCoreApplicationRuntimeEvent,
+  NeuralCoreApplicationRuntimeImpact,
+  NeuralCoreApplicationRuntimeMetric,
+} from "../../application/runtime/neural-core-application-runtime.types";
 
-export interface NeuralCoreInternalRuntimeMetric {
-  readonly id: string;
-  readonly name: string;
-  readonly value: NeuralCoreMetric["value"];
-  readonly unit?: string;
-  readonly status: NeuralCoreMetric["status"];
-  readonly trend: NeuralCoreMetric["trend"];
-}
+export type {
+  NeuralCoreApplicationRuntime as NeuralCoreInternalRuntime,
+  NeuralCoreApplicationRuntimeEvent as NeuralCoreInternalRuntimeEvent,
+  NeuralCoreApplicationRuntimeImpact as NeuralCoreInternalRuntimeImpact,
+  NeuralCoreApplicationRuntimeMetric as NeuralCoreInternalRuntimeMetric,
+} from "../../application/runtime/neural-core-application-runtime.types";
 
-export interface NeuralCoreInternalRuntimeImpact {
-  readonly level: NeuralCoreRuntimeImpact["level"];
-  readonly summary?: string;
-  readonly affectedEntityIds: readonly string[];
-  readonly affectedClusterIds: readonly string[];
-  readonly affectedRouteIds: readonly string[];
-  readonly affectedPathwayIds: readonly string[];
-}
-
-export interface NeuralCoreInternalRuntimeEvent {
-  readonly id: string;
-  readonly kind: NeuralCoreRuntimeEvent["kind"];
-  readonly status: NeuralCoreRuntimeEvent["status"];
-  readonly atMs: number;
-  readonly durationMs: number;
-  readonly entityId?: string;
-  readonly clusterId?: string;
-  readonly routeId?: string;
-  readonly pathwayId?: string;
-  readonly title: string;
-  readonly message?: string;
-  readonly metrics: readonly NeuralCoreInternalRuntimeMetric[];
-  readonly impact?: NeuralCoreInternalRuntimeImpact;
-  readonly retry?: NeuralCoreRuntimeRetry;
-  readonly metadata: NeuralCoreMetadata;
-}
-
-export interface NeuralCoreInternalRuntime {
-  readonly kind: "execution";
-  readonly executionId: string;
-  readonly name: string;
-  readonly description?: string;
-  readonly events: readonly NeuralCoreInternalRuntimeEvent[];
-  readonly outcome: NeuralCoreExecutionOutcome;
-  readonly autoStart: boolean;
-  readonly metadata: NeuralCoreMetadata;
-}
-
-const adaptMetric = (metric: NeuralCoreMetric): NeuralCoreInternalRuntimeMetric => Object.freeze({
+const adaptMetric = (
+  metric: NeuralCoreMetric,
+): NeuralCoreApplicationRuntimeMetric => Object.freeze({
   id: metric.id,
   name: metric.name,
   value: metric.value,
@@ -66,7 +31,7 @@ const adaptMetric = (metric: NeuralCoreMetric): NeuralCoreInternalRuntimeMetric 
 
 const adaptImpact = (
   impact: NeuralCoreRuntimeImpact,
-): NeuralCoreInternalRuntimeImpact => Object.freeze({
+): NeuralCoreApplicationRuntimeImpact => Object.freeze({
   level: impact.level,
   summary: impact.summary,
   affectedEntityIds: Object.freeze(impact.affectedEntityIds.map(String)),
@@ -77,7 +42,7 @@ const adaptImpact = (
 
 const adaptRuntimeEvent = (
   event: NeuralCoreRuntimeEvent,
-): NeuralCoreInternalRuntimeEvent => Object.freeze({
+): NeuralCoreApplicationRuntimeEvent => Object.freeze({
   id: event.id,
   kind: event.kind,
   status: event.status,
@@ -97,7 +62,7 @@ const adaptRuntimeEvent = (
 
 export const adaptNeuralCoreRuntime = (
   runtime: NeuralCoreRuntime,
-): NeuralCoreInternalRuntime => Object.freeze({
+): NeuralCoreApplicationRuntime => Object.freeze({
   kind: "execution",
   executionId: runtime.execution.id,
   name: runtime.execution.name,

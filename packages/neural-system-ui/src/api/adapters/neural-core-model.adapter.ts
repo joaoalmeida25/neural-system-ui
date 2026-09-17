@@ -10,10 +10,10 @@ import type {
   NeuralCoreState as InternalNeuralCoreState,
   NeuralCoreStatus as InternalNeuralCoreStatus,
 } from "../../domain/contract/neural-core-contract.types";
-import { createNeuralCoreTopologyFromState } from "../../domain/topology/neural-core-topology.mapper";
+import { createNeuralCoreApplicationModel } from "../../application/model/create-neural-core-application-model";
+import type { NeuralCoreApplicationModel } from "../../application/model/neural-core-application-model.types";
 import type { NeuralCoreTopologyCompatibilityData } from "../../domain/topology/neural-core-topology-compatibility.types";
 import type {
-  NeuralCoreTopology as InternalNeuralCoreTopology,
   NeuralCoreTopologyStatus,
 } from "../../domain/topology/neural-core-topology.types";
 import type {
@@ -41,13 +41,9 @@ const isCustomRelationKind = (
   relation: NeuralCoreRelationKind,
 ): relation is `custom:${string}` => relation.startsWith("custom:");
 
-export interface NeuralCoreModelAdapterResult {
-  readonly modelId: string;
-  readonly state: InternalNeuralCoreState;
-  readonly topology: InternalNeuralCoreTopology;
-  readonly internalClusterIdByEntityId: ReadonlyMap<string, string>;
-  readonly publicClusterIdByInternalClusterId: ReadonlyMap<string, string>;
-}
+export type {
+  NeuralCoreApplicationModel as NeuralCoreModelAdapterResult,
+} from "../../application/model/neural-core-application-model.types";
 
 const mapMetadataValue = (
   value: NeuralCoreMetadataValue,
@@ -223,7 +219,7 @@ const averageActivity = (model: NeuralCoreModel): number => {
 export const adaptNeuralCoreModel = (
   model: NeuralCoreModel,
   compatibility?: NeuralCoreTopologyCompatibilityData,
-): NeuralCoreModelAdapterResult => {
+): NeuralCoreApplicationModel => {
   const internalClusterIdByEntityId = new Map<string, string>();
   const publicClusterIdByInternalClusterId = new Map<string, string>();
   model.clusters.forEach((cluster) => {
@@ -259,8 +255,10 @@ export const adaptNeuralCoreModel = (
     globalActivity: averageActivity(model),
     metadata: mapMetadata(model.metadata),
   };
-  const topology = createNeuralCoreTopologyFromState(state, {
-    clusterDataById: compatibility?.clusterDataById ?? new Map(),
+  return createNeuralCoreApplicationModel({
+    modelId: model.id,
+    state,
+    compatibility,
     pathways: model.pathways.map((pathway) => ({
       id: pathway.id,
       label: pathway.label,
@@ -270,13 +268,6 @@ export const adaptNeuralCoreModel = (
       activity: averageActivity(model),
       metadata: mapMetadata(pathway.metadata),
     })),
-  });
-  state.topology = topology;
-
-  return Object.freeze({
-    modelId: model.id,
-    state,
-    topology,
     internalClusterIdByEntityId,
     publicClusterIdByInternalClusterId,
   });

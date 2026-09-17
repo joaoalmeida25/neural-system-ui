@@ -1,5 +1,8 @@
-import type { NeuralCoreMetadata } from "../contract/neural-core-contract.types";
+import type { NeuralCoreMetadata } from "../model/neural-core-metadata.types";
+import type { NeuralCoreTopologyStatus } from "../model/neural-core-topology-status.types";
 import type { NeuralCoreClusterSemanticContext } from "../semantic/neural-core-semantic-context.types";
+
+export type { NeuralCoreTopologyStatus } from "../model/neural-core-topology-status.types";
 
 export type NeuralCoreClusterKind =
   | "data"
@@ -43,15 +46,6 @@ export type NeuralCoreTransmissionKind =
   | "success"
   | "warning"
   | "error";
-
-export type NeuralCoreTopologyStatus =
-  | "idle"
-  | "active"
-  | "processing"
-  | "success"
-  | "warning"
-  | "error"
-  | "disabled";
 
 export type NeuralCoreClusterRegion =
   | "frontal"
