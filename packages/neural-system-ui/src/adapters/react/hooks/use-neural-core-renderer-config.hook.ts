@@ -1,15 +1,15 @@
 import { useMemo } from "react";
 
 import {
-  adaptNeuralCoreConfig,
-  type NeuralCoreConfigAdapterResult,
+  resolveNeuralCoreRendererConfig,
+  type NeuralCoreResolvedRendererConfig,
   type NeuralCoreRendererConfigInput,
-} from "../../../visualization/config/neural-core-renderer-config.mapper";
+} from "../../../visualization/config/neural-core-renderer-config.resolver";
 
 export const useNeuralCoreRendererConfig = (
   config: NeuralCoreRendererConfigInput,
   reducedMotion: boolean,
-): NeuralCoreConfigAdapterResult => useMemo(
-  () => adaptNeuralCoreConfig(config, reducedMotion),
+): NeuralCoreResolvedRendererConfig => useMemo(
+  () => resolveNeuralCoreRendererConfig(config, reducedMotion),
   [config, reducedMotion],
 );

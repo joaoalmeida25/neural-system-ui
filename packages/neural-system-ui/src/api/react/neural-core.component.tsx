@@ -6,11 +6,11 @@ import {
 } from "react";
 
 import { useNeuralCoreRendererConfig } from "../../adapters/react/hooks/use-neural-core-renderer-config.hook";
-import { useNeuralCoreInspectionBinding } from "../../adapters/react/renderer/neural-core-inspection-binding.context";
-import { useNeuralCoreModelCompatibility } from "../../adapters/react/renderer/neural-core-model-compatibility.context";
-import { useNeuralCorePresentationBinding } from "../../adapters/react/renderer/neural-core-presentation-binding.context";
-import { NeuralCoreRenderer } from "../../adapters/react/renderer/neural-core-renderer.component";
-import { useNeuralCoreRendererObservers } from "../../adapters/react/renderer/neural-core-renderer-observers.context";
+import { useNeuralCoreInspectionBinding } from "../../adapters/react/composition/neural-core-inspection-binding.context";
+import { useNeuralCoreModelCompatibility } from "../../adapters/react/composition/neural-core-model-compatibility.context";
+import { useNeuralCorePresentationBinding } from "../../adapters/react/composition/neural-core-presentation-binding.context";
+import { NeuralCoreRenderer } from "../../adapters/react/composition/neural-core-renderer.component";
+import { useNeuralCoreRendererObservers } from "../../adapters/react/composition/neural-core-renderer-observers.context";
 import { useNeuralCoreRuntimeBinding } from "../../adapters/react/runtime/neural-core-runtime-binding.context";
 import {
   adaptModelDiagnosticsToPublicError,

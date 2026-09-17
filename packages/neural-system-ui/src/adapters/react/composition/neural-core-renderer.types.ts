@@ -4,7 +4,7 @@ import type { NeuralCoreApplicationModel } from "../../../application/model/neur
 import type { NeuralCoreApplicationRuntime } from "../../../application/runtime/neural-core-application-runtime.types";
 import type { NeuralCoreNarrativeState } from "../../../domain/narrative/neural-core-narrative.types";
 import type { NeuralCoreInteractionMode } from "../../../domain/inspection/neural-core-inspection.types";
-import type { NeuralCoreConfigAdapterResult } from "../../../visualization/config/neural-core-renderer-config.mapper";
+import type { NeuralCoreResolvedRendererConfig } from "../../../visualization/config/neural-core-renderer-config.resolver";
 import type { NeuralCorePresentationBinding } from "../presentation/neural-core-presentation-binding.types";
 import type { NeuralCoreRuntimeBinding } from "../runtime/neural-core-runtime-binding.context";
 import type { NeuralCoreInspectionBinding } from "./neural-core-inspection-binding.context";
@@ -26,7 +26,7 @@ export interface NeuralCoreRendererInteractionController {
 }
 
 export interface NeuralCoreRendererProps {
-  readonly config: NeuralCoreConfigAdapterResult;
+  readonly config: NeuralCoreResolvedRendererConfig;
   readonly interaction: NeuralCoreRendererInteractionController;
   readonly inspectionBinding?: NeuralCoreInspectionBinding;
   readonly model: NeuralCoreApplicationModel;

@@ -49,7 +49,7 @@ export interface NeuralCoreRendererConfigInput {
   };
 }
 
-export interface NeuralCoreConfigAdapterResult {
+export interface NeuralCoreResolvedRendererConfig {
   readonly clusterGrammar: InternalClusterGrammarConfig;
   readonly inspection: InternalInspectionConfig;
   readonly labels: InternalClusterLabelConfig;
@@ -63,10 +63,10 @@ export interface NeuralCoreConfigAdapterResult {
   readonly spatialLayout: InternalSpatialLayoutConfig;
 }
 
-export const adaptNeuralCoreConfig = (
+export const resolveNeuralCoreRendererConfig = (
   config: NeuralCoreRendererConfigInput,
   reducedMotion: boolean,
-): NeuralCoreConfigAdapterResult => {
+): NeuralCoreResolvedRendererConfig => {
   const inspectionEnabled = config.inspection.enabled;
   return Object.freeze({
     clusterGrammar: resolveNeuralCoreClusterGrammarConfig({

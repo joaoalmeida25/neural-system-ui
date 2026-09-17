@@ -16,16 +16,12 @@ import {
   NEURAL_CORE_CLUSTER_LABEL_NETWORK_TRANSFORM_EPSILON,
 } from "../../../../visualization/labels/neural-core-cluster-label.constants";
 import { mapNeuralCoreClusterLabelModels } from "../../../../visualization/labels/neural-core-cluster-label.mapper";
-import type {
-  NeuralCoreClusterLabelModel,
-  NeuralCoreClusterLabelVisualRuntime,
-} from "../../../../visualization/labels/neural-core-cluster-label.types";
+import type { NeuralCoreClusterLabelModel } from "../../../../visualization/labels/neural-core-cluster-label.types";
 import { resolveNeuralCoreClusterLabelPriorityContext } from "../../../../visualization/labels/neural-core-cluster-label.utils";
 import { mapNeuralCoreClusterLabelLayout } from "../../../../visualization/labels/neural-core-label-layout.mapper";
 import type {
   NeuralCoreClusterLabelPlacement,
   NeuralCoreClusterLabelScreenCandidate,
-  NeuralCoreLabelRect,
 } from "../../../../visualization/labels/neural-core-label-layout.types";
 import {
   getNeuralCoreClusterLabelDimensions,
@@ -35,123 +31,16 @@ import type {
   UseNeuralCoreClusterLabelsParams,
   UseNeuralCoreClusterLabelsResult,
 } from "./use-neural-core-cluster-labels.types";
-
-interface NeuralCoreClusterLabelRuntime {
-  model: NeuralCoreClusterLabelModel;
-  localPosition: readonly [number, number, number];
-  projectedPosition: Vector3;
-  placement?: NeuralCoreClusterLabelPlacement;
-  retainedPlacement?: NeuralCoreClusterLabelPlacement;
-  lastVisibleSeconds: number;
-  lastSeenSeconds: number;
-  visual: NeuralCoreClusterLabelVisualRuntime & {
-    currentLeaderOpacity: number;
-    targetLeaderOpacity: number;
-  };
-  active: boolean;
-}
-
-interface NeuralCoreClusterLabelLevelRuntime {
-  state: NeuralCoreClusterLodState;
-  referenceDistance: number;
-}
-
-interface NeuralCoreClusterLabelObserverRuntime {
-  mutation?: MutationObserver;
-  resize?: ResizeObserver;
-}
-
-const createHiddenPlacement = (
-  runtime: NeuralCoreClusterLabelRuntime,
-): NeuralCoreClusterLabelPlacement => ({
-  clusterId: runtime.model.clusterId,
-  x: runtime.projectedPosition.x,
-  y: runtime.projectedPosition.y,
-  anchorX: runtime.projectedPosition.x,
-  anchorY: runtime.projectedPosition.y,
-  width: 0,
-  height: 0,
-  visible: false,
-  displaced: false,
-  opacity: 0,
-});
-
-const getModelsSignature = (
-  models: readonly NeuralCoreClusterLabelModel[],
-): string => JSON.stringify(models.map((model) => ({
-  clusterId: model.clusterId,
-  level: model.level,
-  title: model.title,
-  typeLabel: model.typeLabel,
-  status: model.status,
-  statusLabel: model.statusLabel,
-  activity: model.activity,
-  formattedActivity: model.formattedActivity,
-  metrics: model.metrics.map((metric) => ({
-    id: metric.id,
-    label: metric.label,
-    formattedValue: metric.formattedValue,
-  })),
-  impactLevel: model.impactLevel,
-  impactLabel: model.impactLabel,
-  isFocused: model.isFocused,
-  isCompact: model.isCompact,
-})));
-
-const getLabelContextKey = (
-  directionState: AdvanceNeuralCoreClusterLabelsParams["directionState"],
-  narrativeState: AdvanceNeuralCoreClusterLabelsParams["narrativeState"],
-): string => `${directionState.focusTargetType}:${directionState.focusTargetId ?? "none"}`
-  + `:${directionState.targetClusterIds.join(",")}`
-  + `:${narrativeState.isActive ? narrativeState.clusterIds.join(",") : "inactive"}`;
-
-const getInspectionKey = (
-  params: AdvanceNeuralCoreClusterLabelsParams,
-): string => `${params.clusterGrammarEnabled
-  ? params.clusterGrammarVisibleTerritoryIds?.join(",") ?? "none"
-  : "legacy"}:` + (params.interactionMode === "inspection"
-  ? `inspection:${params.inspectionFocus.selectedClusterId ?? "overview"}`
-    + `:${params.inspectionFocus.relatedClusterIds.join(",")}`
-    + `:${getLabelContextKey(params.directionState, params.narrativeState)}`
-  : getLabelContextKey(params.directionState, params.narrativeState));
-
-const dampVisualValue = (
-  current: number,
-  target: number,
-  damping: number,
-  deltaSeconds: number,
-): number => {
-  return target + (current - target) * Math.exp(-damping * Math.max(0, deltaSeconds));
-};
-
-const createVisualRuntime = (
-  model: NeuralCoreClusterLabelModel,
-): NeuralCoreClusterLabelRuntime["visual"] => ({
-  currentX: Number.NaN,
-  currentY: Number.NaN,
-  targetX: 0,
-  targetY: 0,
-  currentAnchorX: Number.NaN,
-  currentAnchorY: Number.NaN,
-  targetAnchorX: 0,
-  targetAnchorY: 0,
-  currentOpacity: 0,
-  targetOpacity: 0,
-  currentScale: 0.96,
-  targetScale: 0.96,
-  currentWidth: 0,
-  currentHeight: 0,
-  targetWidth: 0,
-  targetHeight: 0,
-  currentLeaderEndX: Number.NaN,
-  currentLeaderEndY: Number.NaN,
-  targetLeaderEndX: 0,
-  targetLeaderEndY: 0,
-  currentLeaderOpacity: 0,
-  targetLeaderOpacity: 0,
-  currentLevel: model.level,
-  targetLevel: model.level,
-});
+import {
+  createHiddenPlacement,
+  createVisualRuntime,
+  dampVisualValue,
+  getInspectionKey,
+  getModelsSignature,
+  type NeuralCoreClusterLabelLevelRuntime,
+  type NeuralCoreClusterLabelRuntime,
+} from "./neural-core-cluster-label-runtime.utils";
+import { useNeuralCoreClusterLabelElements } from "./use-neural-core-cluster-label-elements.hook";
 
 export const useNeuralCoreClusterLabels = ({
   config,
@@ -178,13 +67,17 @@ export const useNeuralCoreClusterLabels = ({
 
   const runtimeByIdRef = useRef(new Map<string, NeuralCoreClusterLabelRuntime>());
   const levelRuntimeByIdRef = useRef(new Map<string, NeuralCoreClusterLabelLevelRuntime>());
-  const labelElementByIdRef = useRef(new Map<string, HTMLElement>());
-  const leaderLineElementByIdRef = useRef(new Map<string, SVGLineElement>());
-  const overlayElementRef = useRef<HTMLDivElement | null>(null);
-  const observerRuntimeRef = useRef<NeuralCoreClusterLabelObserverRuntime>({});
-  const exclusionsRef = useRef<readonly NeuralCoreLabelRect[]>([]);
-  const exclusionMeasurementDirtyRef = useRef(true);
   const layoutDirtyRef = useRef(true);
+  const {
+    exclusionMeasurementDirtyRef,
+    exclusionsRef,
+    labelElementByIdRef,
+    leaderLineElementByIdRef,
+    measureExclusions,
+    registerLabelElement,
+    registerLeaderLineElement,
+    registerOverlayElement,
+  } = useNeuralCoreClusterLabelElements(layoutDirtyRef);
   const lastLayoutSecondsRef = useRef(Number.NEGATIVE_INFINITY);
   const lastViewportRef = useRef({ width: 0, height: 0 });
   const lastDirectionKeyRef = useRef("");
@@ -192,66 +85,6 @@ export const useNeuralCoreClusterLabels = ({
   const lastNetworkMatrixRef = useRef(new Float64Array(16).fill(Number.NaN));
   const lastNetworkAvailableRef = useRef(false);
   const modelsSignatureRef = useRef("");
-
-  const disconnectObservers = useCallback((): void => {
-    observerRuntimeRef.current.mutation?.disconnect();
-    observerRuntimeRef.current.resize?.disconnect();
-    observerRuntimeRef.current = {};
-  }, []);
-
-  const registerOverlayElement = useCallback((element: HTMLDivElement | null): void => {
-    disconnectObservers();
-    overlayElementRef.current = element;
-    exclusionMeasurementDirtyRef.current = true;
-    layoutDirtyRef.current = true;
-    if (!element) {
-      return;
-    }
-    const boundary = element.closest<HTMLElement>("[data-neural-core-label-boundary]")
-      ?? element.parentElement;
-    if (!boundary) {
-      return;
-    }
-    if (typeof MutationObserver !== "undefined") {
-      const mutation = new MutationObserver(() => {
-        exclusionMeasurementDirtyRef.current = true;
-        layoutDirtyRef.current = true;
-      });
-      mutation.observe(boundary, { childList: true, subtree: true });
-      observerRuntimeRef.current.mutation = mutation;
-    }
-    if (typeof ResizeObserver !== "undefined") {
-      const resize = new ResizeObserver(() => {
-        exclusionMeasurementDirtyRef.current = true;
-        layoutDirtyRef.current = true;
-      });
-      resize.observe(boundary);
-      resize.observe(element);
-      observerRuntimeRef.current.resize = resize;
-    }
-  }, [disconnectObservers]);
-
-  const registerLabelElement = useCallback((
-    clusterId: string,
-    element: HTMLElement | null,
-  ): void => {
-    if (element) {
-      labelElementByIdRef.current.set(clusterId, element);
-    } else {
-      labelElementByIdRef.current.delete(clusterId);
-    }
-  }, []);
-
-  const registerLeaderLineElement = useCallback((
-    clusterId: string,
-    element: SVGLineElement | null,
-  ): void => {
-    if (element) {
-      leaderLineElementByIdRef.current.set(clusterId, element);
-    } else {
-      leaderLineElementByIdRef.current.delete(clusterId);
-    }
-  }, []);
 
   useEffect(() => {
     layoutDirtyRef.current = true;
@@ -280,48 +113,6 @@ export const useNeuralCoreClusterLabels = ({
     layoutDirtyRef.current = true;
     setModels([]);
   }, [runtimeScenarioKey]);
-
-  useEffect(() => disconnectObservers, [disconnectObservers]);
-
-  const measureExclusions = useCallback((): void => {
-    const overlay = overlayElementRef.current;
-    if (!overlay || !exclusionMeasurementDirtyRef.current) {
-      return;
-    }
-    exclusionMeasurementDirtyRef.current = false;
-    const overlayRect = overlay.getBoundingClientRect();
-    const boundary = overlay.closest<HTMLElement>("[data-neural-core-label-boundary]")
-      ?? overlay.parentElement;
-    if (!boundary) {
-      exclusionsRef.current = [];
-      return;
-    }
-    const exclusions: NeuralCoreLabelRect[] = [];
-    for (const element of boundary.querySelectorAll<HTMLElement>(
-      "[data-neural-core-label-exclusion]",
-    )) {
-      if (element === overlay || element.offsetParent === null) {
-        continue;
-      }
-      const rect = element.getBoundingClientRect();
-      const numericRect = {
-        x: rect.left - overlayRect.left,
-        y: rect.top - overlayRect.top,
-        width: rect.width,
-        height: rect.height,
-      };
-      if (
-        numericRect.x < overlayRect.width
-        && numericRect.y < overlayRect.height
-        && numericRect.x + numericRect.width > 0
-        && numericRect.y + numericRect.height > 0
-      ) {
-        exclusions.push(numericRect);
-        observerRuntimeRef.current.resize?.observe(element);
-      }
-    }
-    exclusionsRef.current = exclusions;
-  }, []);
 
   const stabilizeLodState = useCallback((
     lodState: NeuralCoreLodState,
