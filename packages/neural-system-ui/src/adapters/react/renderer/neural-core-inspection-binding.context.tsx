@@ -5,7 +5,7 @@ import {
   type ReactNode,
 } from "react";
 
-import type { UseNeuralCoreInspectionResult } from "../../../hooks/use-neural-core-inspection/use-neural-core-inspection.types";
+import type { UseNeuralCoreInspectionResult } from "../hooks/use-neural-core-inspection/use-neural-core-inspection.types";
 
 export interface NeuralCoreInspectionBinding {
   readonly controller: UseNeuralCoreInspectionResult;

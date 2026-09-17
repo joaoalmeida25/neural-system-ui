@@ -5,7 +5,7 @@ import {
   type ReactElement,
 } from "react";
 
-import { adaptNeuralCoreConfig } from "../../adapters/react/config/neural-core-renderer-config.adapter";
+import { useNeuralCoreRendererConfig } from "../../adapters/react/hooks/use-neural-core-renderer-config.hook";
 import { useNeuralCoreInspectionBinding } from "../../adapters/react/renderer/neural-core-inspection-binding.context";
 import { useNeuralCoreModelCompatibility } from "../../adapters/react/renderer/neural-core-model-compatibility.context";
 import { useNeuralCorePresentationBinding } from "../../adapters/react/renderer/neural-core-presentation-binding.context";
@@ -60,10 +60,7 @@ export const NeuralCore = (props: NeuralCoreProps): ReactElement => {
   const resolvedModel = modelResult.ok ? modelResult.value : undefined;
   const config = useMemo(() => createNeuralCoreConfig(configInput), [configInput]);
   const reducedMotion = useNeuralCoreMotionPreference(config.accessibility.motion);
-  const adaptedConfig = useMemo(
-    () => adaptNeuralCoreConfig(config, reducedMotion),
-    [config, reducedMotion],
-  );
+  const adaptedConfig = useNeuralCoreRendererConfig(config, reducedMotion);
   const adaptedModel = useMemo(
     () => resolvedModel === undefined
       ? undefined
