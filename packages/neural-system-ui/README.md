@@ -116,4 +116,8 @@ Rendering uses browser APIs, WebGL, React Three Fiber, and Three.js. SSR compati
 
 ## License
 
-A license has not been selected yet. The license decision must be completed before public release.
+Neural System UI is source-available.
+
+Personal and non-commercial use is permitted under the [PolyForm Noncommercial License 1.0.0](LICENSE).
+
+Commercial use requires a [separate commercial license](COMMERCIAL.md).

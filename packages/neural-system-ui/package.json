@@ -24,10 +24,13 @@
     "url": "https://github.com/joaoalmeida25/neural-system-ui/issues"
   },
   "author": "João Almeida",
+  "license": "PolyForm-Noncommercial-1.0.0",
   "type": "module",
   "types": "./dist/types/api/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "NOTICE",
+    "COMMERCIAL.md"
   ],
   "sideEffects": [
     "**/*.css"
