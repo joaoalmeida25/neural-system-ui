@@ -98,7 +98,7 @@ const NeuralCoreRendererContent = ({
   );
   const operationalRuntimeConfig = useMemo(() => ({
     enabled: runtime !== undefined && runtimeBinding === undefined,
-    autoStart: false,
+    autoStart: runtime?.autoStart === true,
     playbackRate: 1,
     autoFollowInPresentation: true,
   }), [runtime, runtimeBinding]);
@@ -118,28 +118,28 @@ const NeuralCoreRendererContent = ({
     readyModelIdRef.current = model.modelId;
     onReady?.();
   }, [model.modelId, onReady]);
-  const autoStartedExecutionIdRef = useRef<string | undefined>(undefined);
+  const previousRuntimeRef = useRef({
+    executionId: runtime?.executionId,
+    status: operationalRuntime.snapshot.status,
+  });
   useEffect(() => {
-    if (
-      runtimeBinding === undefined
-      &&
-      runtime?.autoStart === true
-      && autoStartedExecutionIdRef.current !== runtime.executionId
-    ) {
-      autoStartedExecutionIdRef.current = runtime.executionId;
-      operationalRuntime.run();
-    }
-  }, [operationalRuntime.run, runtime, runtimeBinding]);
-
-  const previousRuntimeStatusRef = useRef(operationalRuntime.snapshot.status);
-  useEffect(() => {
-    const previousStatus = previousRuntimeStatusRef.current;
+    const previousRuntime = previousRuntimeRef.current;
     const nextStatus = operationalRuntime.snapshot.status;
-    previousRuntimeStatusRef.current = nextStatus;
-    if (runtime === undefined || previousStatus === nextStatus) {
+    previousRuntimeRef.current = {
+      executionId: runtime?.executionId,
+      status: nextStatus,
+    };
+    const executionChanged = previousRuntime.executionId !== runtime?.executionId;
+    if (
+      runtime === undefined
+      || (!executionChanged && previousRuntime.status === nextStatus)
+    ) {
       return;
     }
-    if (previousStatus === "idle" && nextStatus !== "idle") {
+    if (
+      nextStatus !== "idle"
+      && (executionChanged || previousRuntime.status === "idle")
+    ) {
       onRuntimeStarted?.();
     }
     if (nextStatus === "completed") {

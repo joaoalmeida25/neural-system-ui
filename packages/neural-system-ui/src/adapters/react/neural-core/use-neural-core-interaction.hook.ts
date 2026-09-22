@@ -81,6 +81,19 @@ export const useNeuralCoreInteraction = ({
     paused: sourceState.paused,
   }), [adapted?.state.selectedClusterId, sourceState.mode, sourceState.paused]);
 
+  const previousPausedRef = useRef(sourceState.paused);
+  useEffect(() => {
+    const previousPaused = previousPausedRef.current;
+    previousPausedRef.current = sourceState.paused;
+    if (previousPaused === sourceState.paused || executionId === undefined) {
+      return;
+    }
+    emitEvent(Object.freeze({
+      type: sourceState.paused ? "execution-paused" : "execution-resumed",
+      executionId,
+    }));
+  }, [emitEvent, executionId, sourceState.paused]);
+
   const previousModelIdRef = useRef<string | undefined>(undefined);
   useEffect(() => {
     const previousModelId = previousModelIdRef.current;
@@ -143,13 +156,7 @@ export const useNeuralCoreInteraction = ({
     const current = sourceStateRef.current;
     if (current.paused === paused) return;
     commitState(Object.freeze({ ...current, paused }), paused ? "paused" : "resumed");
-    if (executionId !== undefined) {
-      emitEvent(Object.freeze({
-        type: paused ? "execution-paused" : "execution-resumed",
-        executionId,
-      }));
-    }
-  }, [commitState, emitEvent, executionId]);
+  }, [commitState]);
 
   const requestSelection = useCallback((
     clusterId: string | undefined,

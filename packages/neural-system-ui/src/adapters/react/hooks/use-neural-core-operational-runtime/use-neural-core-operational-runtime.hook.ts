@@ -406,8 +406,11 @@ export const useNeuralCoreOperationalRuntime = ({
 
   useEffect(() => {
     executionIndexRef.current = executionIndex;
+  }, [executionIndex]);
+
+  useEffect(() => {
     resetRuntime(true);
-  }, [config.enabled, executionIndex, resetKey, resetRuntime]);
+  }, [config.enabled, execution.id, resetKey, resetRuntime]);
 
   useEffect(() => {
     const wasSuspended = suspendedRef.current;
@@ -458,7 +461,7 @@ export const useNeuralCoreOperationalRuntime = ({
     if (config.enabled && config.autoStart) {
       run();
     }
-  }, [config.autoStart, config.enabled, run]);
+  }, [config.autoStart, config.enabled, execution.id, resetKey, run]);
 
   const publishedSnapshot = snapshot.executionId === execution.id
     ? snapshot

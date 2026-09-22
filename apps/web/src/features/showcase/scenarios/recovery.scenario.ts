@@ -1,0 +1,120 @@
+import type { NeuralCoreRuntimeInput } from "neural-system-ui";
+
+import type { ShowcaseMessages } from "../../i18n/showcase-i18n.types";
+import { createShowcaseRuntime } from "./showcase-runtime.factory";
+import type { ShowcaseScenarioDefinition } from "./showcase-scenario.types";
+
+const createRecoveryRuntime = (messages: ShowcaseMessages): NeuralCoreRuntimeInput => createShowcaseRuntime(
+  "recovery",
+  messages,
+  3_800,
+  [
+    {
+      id: "recovery-provider-unavailable",
+      kind: "failure-raised",
+      status: "error",
+      atMs: 0,
+      durationMs: 400,
+      entityId: "payment-provider",
+      clusterId: "external",
+      routeId: "payment-to-payment-provider",
+      pathwayId: "checkout-processing",
+      title: messages.narrative.providerUnavailable,
+    },
+    {
+      id: "recovery-retry-scheduled",
+      kind: "retry-scheduled",
+      status: "warning",
+      atMs: 400,
+      durationMs: 600,
+      entityId: "payment-service",
+      clusterId: "transactions",
+      routeId: "payment-to-payment-provider",
+      pathwayId: "checkout-processing",
+      title: messages.narrative.retryScheduled,
+      retry: {
+        attempt: 1,
+        maximumAttempts: 3,
+        delayMs: 600,
+        reason: messages.narrative.retryReason,
+      },
+    },
+    {
+      id: "recovery-retry-started",
+      kind: "retry-started",
+      status: "recovering",
+      atMs: 1_000,
+      durationMs: 800,
+      entityId: "payment-service",
+      clusterId: "transactions",
+      routeId: "payment-to-payment-provider",
+      pathwayId: "checkout-processing",
+      title: messages.narrative.retryStarted,
+      retry: {
+        attempt: 2,
+        maximumAttempts: 3,
+        delayMs: 0,
+      },
+    },
+    {
+      id: "recovery-provider-recovered",
+      kind: "component-recovered",
+      status: "success",
+      atMs: 1_800,
+      durationMs: 500,
+      entityId: "payment-provider",
+      clusterId: "external",
+      routeId: "payment-to-payment-provider",
+      pathwayId: "checkout-processing",
+      title: messages.narrative.providerRecovered,
+    },
+    {
+      id: "recovery-payment-authorized",
+      kind: "stage-completed",
+      status: "success",
+      atMs: 2_300,
+      durationMs: 700,
+      entityId: "payment-service",
+      clusterId: "transactions",
+      routeId: "checkout-to-payment",
+      pathwayId: "checkout-processing",
+      title: messages.narrative.paymentRecovered,
+    },
+    {
+      id: "recovery-order-created",
+      kind: "stage-completed",
+      status: "success",
+      atMs: 3_000,
+      durationMs: 500,
+      entityId: "orders-service",
+      clusterId: "commerce",
+      routeId: "checkout-to-orders",
+      pathwayId: "order-persistence",
+      title: messages.narrative.orderCreated,
+    },
+    {
+      id: "recovery-execution-completed",
+      kind: "execution-completed",
+      status: "success",
+      atMs: 3_500,
+      entityId: "orders-service",
+      title: messages.narrative.executionCompleted,
+    },
+  ],
+  "recovered-success",
+);
+
+export const recoveryScenario = {
+  id: "recovery",
+  state: {
+      clusters: { transactions: "recovering", external: "recovering" },
+      entities: { "payment-service": "recovering", "payment-provider": "recovering" },
+      routes: {
+        "checkout-to-payment": "recovering",
+        "payment-to-payment-provider": "recovering",
+      },
+      pathways: { "checkout-processing": "recovering" },
+      activity: { "payment-service": 1, "payment-provider": 0.9 },
+    },
+  createRuntime: createRecoveryRuntime,
+} as const satisfies ShowcaseScenarioDefinition;
